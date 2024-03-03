@@ -14,8 +14,7 @@ import (
 // createCmd represents the create command
 var createCmd = &cobra.Command{
 	Use:   "create",
-	Short: "A brief description of your command",
-	Long:  `A longer description that spans multiple lines and likely contains examples`,
+	Short: "create standard Golang project",
 	Run: func(cmd *cobra.Command, args []string) {
 		dirFlag, _ := cmd.Flags().GetString("dir")
 		rmdFlag, _ := cmd.Flags().GetBool("rmd")
@@ -27,11 +26,11 @@ var createCmd = &cobra.Command{
 
 func init() {
 	cmd.GetRootCmd().AddCommand(createCmd)
-	cmd.GetRootCmd().PersistentFlags().String("dir", "", "flag to define projectname/directory")
+	cmd.GetRootCmd().PersistentFlags().String("dir", "", "define projectname/directory")
 
 	var rmd bool
-	cmd.GetRootCmd().PersistentFlags().BoolVar(&rmd, "rmd", false, "")
+	cmd.GetRootCmd().PersistentFlags().BoolVar(&rmd, "rmd", false, "create README.md file")
 
 	var code bool
-	cmd.GetRootCmd().PersistentFlags().BoolVar(&code, "code", false, "")
+	cmd.GetRootCmd().PersistentFlags().BoolVar(&code, "code", false, "open project in code editor")
 }

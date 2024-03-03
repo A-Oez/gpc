@@ -15,8 +15,9 @@ func subDir() {
 	pkgPath := filepath.Join(varDirName, "pkg")
 	cmdPath := filepath.Join(varDirName, "cmd")
 	internalPath := filepath.Join(varDirName, "internal")
+	configPath := filepath.Join(varDirName, "config")
 
-	paths := []string{pkgPath, cmdPath, internalPath}
+	paths := []string{pkgPath, cmdPath, internalPath, configPath}
 
 	createDir(paths)
 }
