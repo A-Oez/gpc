@@ -8,7 +8,10 @@ import (
 
 func allfiles() {
 	createFiles("main.go", true)
-	createFiles("README.md", true)
+
+	if varReadme {
+		createFiles("README.md", true)
+	}
 }
 
 func createFiles(fileName string, config bool) {
