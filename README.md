@@ -36,3 +36,4 @@ Currently, the main.go file & the README.md can be filled with standard values.
 To do this:
 - Create a folder named "gocreate_config" in the go/bin directory
 - Add `config_main.go.txt` & `config_README.md.txt` files with specific values
+(see the gocreate_config directory in the project as an example)
