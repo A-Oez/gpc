@@ -9,23 +9,25 @@ go install
 GoCreate create --dir PROJECTNAME --rmd --code 
 
 ## Flags 
---dir | name of project (mandatory)
--- rmd | generate README.md file (optional)
--- code | open new project in vs.code (optional)
+- `--dir`: Specifies the name of the project (mandatory)
+- `--rmd`: Generates a README.md file (optional)
+- `--code`: Opens the new project in VS Code (optional)
 
 ## Project structure
+The project structure will look like this:
+
 ProjectName
-|__ cmd
-|__ config
-|__ internal
-|__ pkg
-|__ go.mod
-|__ main.go
-|__ README.md
+├── cmd
+├── config
+├── internal
+├── pkg
+├── go.mod
+├── main.go
+├── README.md
 
 ## Template Files
 Currently, the main.go file & the README.md can be filled with standard values.
 
 To do this:
--> create folder "gocreate_config" in go/bin directory
--> add config_main.go.txt & config_README.md.txt files with specific value 
+- Create a folder named "gocreate_config" in the go/bin directory
+- Add `config_main.go.txt` & `config_README.md.txt` files with specific values
