@@ -1,6 +1,14 @@
-CLI to compare outputs from two files
+# GoProjectCreator
 
--> with cobra cli to managa commands 
+CLI Tool with Cobra, to create standard Go Projects 
 
--> UI in terminal with -> bubbletea
--> https://github.com/charmbracelet/bubbletea/tree/master/examples
+## Installation
+go install 
+
+## Example Command
+GoCreate create --dir PROJECTNAME --rmd --code 
+
+## Flags 
+--dir | name of project (mandatory)
+-- rmd | generate README.md file (optional)
+-- code | open new project in vs.code (optional)

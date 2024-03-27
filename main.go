@@ -1,9 +1,9 @@
 package main
 
 import (
-	"projectcreator/cli/cmd"
+	"GoCreate/cmd"
 
-	_ "projectcreator/cli/cmd/create"
+	_ "GoCreate/cmd/create"
 )
 
 func main() {

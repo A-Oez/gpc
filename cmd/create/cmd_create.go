@@ -6,9 +6,9 @@ package create
 import (
 	"github.com/spf13/cobra"
 
-	"projectcreator/cli/cmd"
+	"GoCreate/cmd"
 
-	create "projectcreator/cli/internal/create"
+	create "GoCreate/internal/create"
 )
 
 // createCmd represents the create command

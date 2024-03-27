@@ -1,4 +1,4 @@
-module projectcreator/cli
+module GoCreate
 
 go 1.22.0
 
