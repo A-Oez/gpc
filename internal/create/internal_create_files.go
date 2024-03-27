@@ -24,7 +24,13 @@ func createFiles(fileName string, config bool) {
 	}
 
 	if config {
-		content := getConfigFileContent(fileName)
+		content, err := getConfigFileContent(fileName)
+
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+
 		writeFileContent(file, content)
 	}
 
@@ -40,13 +46,20 @@ func writeFileContent(file *os.File, content string) {
 	}
 }
 
-func getConfigFileContent(fileName string) string {
-	content, err := os.ReadFile("config/config_" + fileName + ".txt")
-
+func getConfigFileContent(fileName string) (string, error) {
+	executablePath, err := os.Executable()
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		return "", err
 	}
 
-	return string(content)
+	executableDir := filepath.Dir(executablePath)
+
+	configPath := filepath.Join(executableDir, "gocreate_config", "config_"+fileName+".txt")
+
+	content, err := os.ReadFile(configPath)
+	if err != nil {
+		return "", err
+	}
+
+	return string(content), nil
 }
