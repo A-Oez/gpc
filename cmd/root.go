@@ -8,10 +8,8 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "go-project",
-	Short: "A program to spin up a quick Go project using a popular framework",
-	Long: `Go Blueprint is a CLI tool that allows users to spin up a Go project with the corresponding structure seamlessly. 
-It also gives the option to integrate with one of the more popular Go frameworks!`,
+	Use:  "GoProjectCreator",
+	Long: `A simple CLI tool to create standard Go projects`,
 }
 
 func Execute() {
