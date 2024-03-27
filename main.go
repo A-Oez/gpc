@@ -1,9 +1,9 @@
 package main
 
 import (
-	"GoCreate/cmd"
+	"github.com/A-Oez/GoProjectCreator/cmd"
 
-	_ "GoCreate/cmd/create"
+	_ "github.com/A-Oez/GoProjectCreator/cmd/create"
 )
 
 func main() {

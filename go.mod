@@ -1,4 +1,4 @@
-module GoCreate
+module github.com/A-Oez/GoProjectCreator
 
 go 1.22.0
 
