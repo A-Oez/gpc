@@ -26,12 +26,10 @@ func createFiles(fileName string, config bool) {
 	if config {
 		content, err := getConfigFileContent(fileName)
 
-		if err != nil {
-			fmt.Fprintln(os.Stderr, err)
-			os.Exit(1)
+		if err == nil {
+			writeFileContent(file, content)
 		}
 
-		writeFileContent(file, content)
 	}
 
 	defer file.Close()

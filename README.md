@@ -14,7 +14,7 @@ GoProjectCreator create `--dir` PROJECTNAME `--rmd` `--code`
 ## Flags 
 - `--dir`: Specifies the name of the project `(mandatory)`
 - `--rmd`: Generates a README.md file `(optional)`
-- `--code`: Opens the new project in VS Code `(optional)`
+- `--code`: Open project in code editor `(optional)`
 
 
 ## Project structure
