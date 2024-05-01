@@ -1,0 +1,35 @@
+# You should know that Docker Compose works with services.
+# 1 service = 1 container.
+# For example, a service, a server, a client, a database...
+# We use the keyword 'services' to start to create services.
+services:
+  # The name of our service is "db"
+  # but you can use the name of your choice.
+  # Note: This may change the commands you are going to use a little bit.
+  db:
+    # Official Postgres image from DockerHub (we use the last version)
+    image: 'postgres:latest'
+
+    # By default, a Postgres database is running on the 5432 port.
+    # If we want to access the database from our computer (outside the container),
+    # we must share the port with our computer's port.
+    # The syntax is [port we want on our machine]:[port we want to retrieve in the container]
+    # Note: You are free to change your computer's port,
+    # but take into consideration that it will change the way
+    # you are connecting to your database.
+    ports:
+      - 5432:5432
+
+    env_file:
+      - .env # The name of the environment file
+      
+    environment:
+      POSTGRES_USER: username 
+      POSTGRES_PASSWORD: password
+
+#docker-compose up -> to create the db image / container / with -d you can start these process in the background
+#docker-compose start -> starts all services / docker-compose start <service name> to start individual service 
+#docker-compose stop -> stops all services / docker-compose stop <service name> to stop individual service
+#docker-compose restart -> restarts all services / docker-compose stop <service name> to restart individual service
+#docker-compose ps -> shows all created container 
+#docker-compose logs <service name>
