@@ -11,7 +11,7 @@ func CreateDir(paths []string) {
 		err := os.Mkdir(path, 0755)
 
 		if err != nil {
-			fmt.Fprintln(os.Stderr, "use --dir to specify a project name / project already exists")
+			fmt.Fprintln(os.Stderr, "use --p to specify a project name / project already exists")
 			os.Exit(1)
 		}
 	}

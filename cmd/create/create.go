@@ -9,7 +9,7 @@ import (
 	"github.com/A-Oez/GoProjectCreator/cmd"
 
 	bp "github.com/A-Oez/GoProjectCreator/internal/base_project"
-	db "github.com/A-Oez/GoProjectCreator/internal/db"
+	_ "github.com/A-Oez/GoProjectCreator/internal/db"
 )
 
 var createCmd = &cobra.Command{
@@ -28,7 +28,7 @@ func init() {
 
 func execute(cmd *cobra.Command, args []string){
 	projectNameFlag, _ := cmd.Flags().GetString("p")
-	databaseFlag, _ := cmd.Flags().GetBool("db")
+	//databaseFlag, _ := cmd.Flags().GetBool("db")
 	openEditorFlag, _ := cmd.Flags().GetBool("code")
 
 	//create base project
@@ -43,7 +43,7 @@ func execute(cmd *cobra.Command, args []string){
 	bp.CreateFiles()
 	bp.UseCommands()
 
-
+/*
 	if databaseFlag{
 		db := db.DatabaseProject{
 			ProjectName: projectNameFlag, 
@@ -51,4 +51,5 @@ func execute(cmd *cobra.Command, args []string){
 
 		db.CreateDirectories()
 	}	
+*/
 }

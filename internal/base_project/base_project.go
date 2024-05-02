@@ -1,8 +1,6 @@
 package base_project
 
 import (
-	"fmt"
-	"os"
 	"os/exec"
 
 	"path/filepath"
@@ -40,24 +38,24 @@ func (bp *BaseProject) UseCommands() {
 }
 
 func (bp *BaseProject) CreateFiles(){
-	//file creation path != file config path
-	mainGoFile := []string{bp.ProjectName, "main.go"}
-	path := filepath.Join(mainGoFile...)
+	mainPath := []string{bp.ProjectName, "main.go"}
+	mainConfig := []string{"gocreate_config", "config_main.go.txt"}
 
-	file, err := os.Create(path)
+	readmePath := []string{bp.ProjectName, "README.md"}
+	readmeConfig := []string{"gocreate_config", "config_README.md.txt"}
 
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+	files := []utils.File{
+		{
+			FilePath: mainPath,
+			ConfigPath: mainConfig,
+		},
+		{
+			FilePath: readmePath,
+			ConfigPath: readmeConfig,
+		},
 	}
 
-	content, err := utils.GetConfigFileContent(mainGoFile...)
-
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
-	}
-
-	utils.WriteFileContent(file, content)
-	defer file.Close()
+	for _, file := range files{
+		utils.CreateFiles(file.FilePath, file.ConfigPath)
+	} 
 }
