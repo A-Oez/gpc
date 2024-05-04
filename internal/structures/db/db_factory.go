@@ -11,9 +11,10 @@ var SupportedDatabaseTypes = []DatabaseType{
 	Postgres,
 }
 
-type DatabaseServices interface {
+type DatabaseStructure interface {
 	CreateDirectories()
 	CreateFiles()
+	UseCommand()
 }
 
 func ParseDatabaseType(dbType string) (DatabaseType, bool) {
@@ -25,7 +26,7 @@ func ParseDatabaseType(dbType string) (DatabaseType, bool) {
 	return "", false
 }
 
-func DatabaseServiceFactory(projectName string, dbType DatabaseType) DatabaseServices {
+func DatabaseServiceFactory(projectName string, dbType DatabaseType) DatabaseStructure {
 	switch dbType {
 	case Postgres:
 		return &DBPostgres{

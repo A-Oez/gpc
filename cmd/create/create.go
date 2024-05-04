@@ -30,18 +30,23 @@ func execute(cmd *cobra.Command, args []string){
 	databaseFlag, _ := cmd.Flags().GetString("db")
 	openEditorFlag, _ := cmd.Flags().GetBool("code")
 
-	createBaseStructure(projectNameFlag, openEditorFlag)
+	createBaseStructure(projectNameFlag, openEditorFlag, databaseFlag)
 	createDBStructure(projectNameFlag, databaseFlag)
 }
 
-func createBaseStructure(projectNameFlag string, openEditorFlag bool){
+func createBaseStructure(projectNameFlag string, openEditorFlag bool, databaseFlag string){
 	bp := bp.BaseProject{
 		ProjectName: projectNameFlag, 
 		OpenEditor: openEditorFlag,
 	}
 	bp.CreateMainDirectory()
 	bp.CreateDirectories()
-	bp.CreateFiles()
+	bp.CreateBaseFiles()
+	
+	if(databaseFlag != ""){
+		bp.CreateMainFile()
+	}
+
 	bp.UseCommands()
 }
 

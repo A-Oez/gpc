@@ -1,0 +1,13 @@
+package repository
+
+import (
+	"XPROJECTNAMEX/db/entity"
+)
+
+/*
+	declare all repository interfaces
+*/
+
+type UserRepository interface {
+	GetAll() ([]entity.User, error)
+}

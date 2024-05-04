@@ -1,0 +1,42 @@
+package main
+
+import (
+	"fmt"
+	dbFactory "XPROJECTNAMEX/db"
+
+	userRepository "XPROJECTNAMEX/db/repository/user"
+
+	service "XPROJECTNAMEX/service"
+	"log"
+
+	"github.com/joho/godotenv"
+	_ "github.com/lib/pq"
+)
+
+func main() {
+	
+	//load env variables from .env file
+	if err := godotenv.Load(); err != nil {
+		log.Fatalf("Error loading environment variables %v", err)
+	}
+
+	dbType := "postgres" 
+
+	db, err := dbFactory.GetDatabaseContextFactory(dbType).GetConnection()
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	
+	userService := service.NewUserService(userRepository.UserRepositoryFactory(dbType, db))
+	users, err := userService.GetAllUsers()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, user := range users {
+		fmt.Printf("ID: %d, Name: %s\n", user.ID, user.Name)
+	}
+	
+}

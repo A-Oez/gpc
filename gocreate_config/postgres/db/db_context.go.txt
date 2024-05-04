@@ -1,0 +1,26 @@
+package db
+
+import (
+	"database/sql"
+
+	_ "github.com/lib/pq"
+
+	db "XPROJECTNAMEX/db/database_types"
+)
+
+type SqlDBConnection interface{
+	GetConnection() (*sql.DB, error)
+}
+
+/*
+	to create new database connections, just append the factory and add a struct with a GetConnection method
+*/
+
+func GetDatabaseContextFactory(dbType string) SqlDBConnection {
+	switch dbType {
+	case "postgres":
+		return &db.PostgresDatabase{}
+	default:
+		return nil
+	}
+}

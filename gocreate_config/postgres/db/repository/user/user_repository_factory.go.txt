@@ -1,0 +1,18 @@
+package repository_user
+
+import (
+	"database/sql"
+	"XPROJECTNAMEX/db/repository"
+	pg "XPROJECTNAMEX/db/repository/user/postgres"
+)
+
+func UserRepositoryFactory(dbType string, db *sql.DB) repository.UserRepository {
+	switch dbType {
+	case "postgres":
+		return &pg.UserRepository{
+			DB: db,
+		}
+	default:
+		return nil
+	}
+}
