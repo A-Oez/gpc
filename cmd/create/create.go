@@ -55,6 +55,7 @@ func createDBStructure(projectNameFlag string, databaseFlag string){
 		db := dbFactory.DatabaseServiceFactory(projectNameFlag, dbType)
 		db.CreateDirectories()
 		db.CreateFiles()
+		db.UseCommand()
 	} else {
 		message := fmt.Sprintf("Given db input %s doesnt exist, no db structure created", databaseFlag)
 		fmt.Println(message)
