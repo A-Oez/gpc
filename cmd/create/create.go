@@ -41,12 +41,7 @@ func createBaseStructure(projectNameFlag string, openEditorFlag bool, databaseFl
 	}
 	bp.CreateMainDirectory()
 	bp.CreateDirectories()
-	bp.CreateBaseFiles()
-	
-	if(databaseFlag != ""){
-		bp.CreateMainFile()
-	}
-
+	bp.CreateFiles()
 	bp.UseCommands()
 }
 

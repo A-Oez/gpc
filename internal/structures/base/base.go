@@ -37,11 +37,18 @@ func (bp *BaseProject) UseCommands() {
 	}
 }
 
-func (bp *BaseProject) CreateBaseFiles(){
+func (bp *BaseProject) CreateFiles(){
+	mainGoPath := []string{bp.ProjectName, "main.go"}
+	mainGoConfig := []string{"gocreate_config", "main.go.txt"}
+
 	readmePath := []string{bp.ProjectName, "README.md"}
 	readmeConfig := []string{"gocreate_config", "README.md.txt"}
 
 	files := []utils.File{
+		{
+			FilePath: mainGoPath,
+			ConfigPath: mainGoConfig,
+		},
 		{
 			FilePath: readmePath,
 			ConfigPath: readmeConfig,
@@ -49,22 +56,6 @@ func (bp *BaseProject) CreateBaseFiles(){
 	}
 
 	for _, file := range files{
-		utils.CreateFiles(file.FilePath, file.ConfigPath)
-	} 
-}
-
-func (bp *BaseProject) CreateMainFile(){
-	mainPath := []string{bp.ProjectName, "main.go"}
-	mainConfig := []string{"gocreate_config", "main.go.txt"}
-
-	files := []utils.File{
-		{
-			FilePath: mainPath,
-			ConfigPath: mainConfig,
-		},
-	}
-
-	for _, file := range files{
-		utils.CreateFiles(file.FilePath, file.ConfigPath)
+		utils.CreateFiles(file.FilePath, file.ConfigPath, bp.ProjectName)
 	} 
 }

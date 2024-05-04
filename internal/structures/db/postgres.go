@@ -30,6 +30,9 @@ func (db *DBPostgres) CreateFiles(){
 	dockerPath := []string{db.ProjectName, "docker-compose.yml"}
 	dockerConfig := []string{"gocreate_config", "postgres", "docker-compose.yml"}
 
+	mainGoPath := []string{db.ProjectName, "main.go"}
+	mainGoConfig := []string{"gocreate_config", "postgres", "main.go.txt"}
+
 	dbContextPath := []string{db.ProjectName, "db","db_context.go"}
 	dbContextConfig := []string{"gocreate_config", "postgres", "db", "db_context.go.txt"}
 	
@@ -59,6 +62,10 @@ func (db *DBPostgres) CreateFiles(){
 		{
 			FilePath: dockerPath,
 			ConfigPath: dockerConfig,
+		},
+		{
+			FilePath: mainGoPath,
+			ConfigPath: mainGoConfig,
 		},
 		{
 			FilePath: dbContextPath,
@@ -91,7 +98,7 @@ func (db *DBPostgres) CreateFiles(){
 	}
 
 	for _, file := range files{
-		utils.CreateFiles(file.FilePath, file.ConfigPath)
+		utils.CreateFiles(file.FilePath, file.ConfigPath, db.ProjectName)
 	} 
 }
 

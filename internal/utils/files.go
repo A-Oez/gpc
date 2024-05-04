@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 type File struct{
@@ -12,12 +13,12 @@ type File struct{
 }
 
 //creates file based on filePath and writes data from config files, when no config file needed, then pass empty string arr
-func CreateFiles(filePath []string, configPath []string){
+func CreateFiles(filePath []string, configPath []string, projectName string){
 	path := filepath.Join(filePath...)
 	file,_ := os.Create(path)
 
 	if(configPath != nil){
-		content, err := getConfigFileContent(configPath...)
+		content, err := getConfigFileContent(projectName, configPath...)
 
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err)
@@ -30,7 +31,7 @@ func CreateFiles(filePath []string, configPath []string){
 	defer file.Close()
 }
 
-func getConfigFileContent(filePath ...string) (string, error) {
+func getConfigFileContent(projectName string, filePath ...string) (string, error) {
 	executablePath, err := os.Executable()
 	if err != nil {
 		return "", err
@@ -46,7 +47,9 @@ func getConfigFileContent(filePath ...string) (string, error) {
 		return "", err
 	}
 
-	return string(content), nil
+	replacedContent := strings.ReplaceAll(string(content), "XPROJECTNAMEX", projectName)
+
+	return replacedContent, nil
 }
 
 func writeFileContent(file *os.File, content string) {
