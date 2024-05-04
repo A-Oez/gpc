@@ -14,12 +14,13 @@ type DBPostgres struct {
 func (db *DBPostgres) CreateDirectories(){
 	dbPath := filepath.Join(db.ProjectName, "db")
 	service := filepath.Join(db.ProjectName, "service")
+	test := filepath.Join(db.ProjectName, "test")
 	database_types := filepath.Join(db.ProjectName, "db", "database_types")
 	entity := filepath.Join(db.ProjectName, "db", "entity")
 	repository := filepath.Join(db.ProjectName, "db", "repository")
 	user := filepath.Join(db.ProjectName, "db", "repository", "user")
 	postgres := filepath.Join(db.ProjectName, "db", "repository", "user", "postgres")
-	subDir := []string{dbPath, service, database_types, entity, repository, user, postgres}
+	subDir := []string{dbPath, service, test, database_types, entity, repository, user, postgres}
 	utils.CreateDir(subDir)	
 }
 
@@ -53,6 +54,13 @@ func (db *DBPostgres) CreateFiles(){
 
 	userServicePath := []string{db.ProjectName, "service", "user_service.go"}
 	userServiceConfig := []string{"gocreate_config", "postgres", "service", "user_service.go.txt"}
+
+	connTestPath := []string{db.ProjectName, "test", "postgres_connection_test.go"}
+	connTestConfig := []string{"gocreate_config", "postgres", "test", "postgres_connection_test.go.txt"}
+
+	userServiceTestPath := []string{db.ProjectName, "test", "user_service_test.go"}
+	userServiceTestConfig := []string{"gocreate_config", "postgres", "test", "user_service_test.go.txt"}
+
 
 	files := []utils.File{
 		{
@@ -94,6 +102,14 @@ func (db *DBPostgres) CreateFiles(){
 		{
 			FilePath: userServicePath,
 			ConfigPath: userServiceConfig,
+		},
+		{
+			FilePath: connTestPath,
+			ConfigPath: connTestConfig,
+		},
+		{
+			FilePath: userServiceTestPath,
+			ConfigPath: userServiceTestConfig,
 		},
 	}
 

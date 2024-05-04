@@ -1,0 +1,56 @@
+package test
+
+import (
+	"XPROJECTNAMEX/db/entity"
+	_ "XPROJECTNAMEX/db/repository"
+	"XPROJECTNAMEX/service"
+	"testing"
+)
+
+
+type UserReposiotry struct{}
+
+var(
+	sampleUsers = []entity.User{
+        {ID: 1, Name: "Alice"},
+        {ID: 2, Name: "124123"},
+        {ID: 3, Name: "Charlie"},
+    }	
+
+)
+
+func (u *UserReposiotry) GetAll() ([]entity.User, error){
+	return sampleUsers, nil
+}
+
+func TestGetAllUserService(t *testing.T){
+	userService := service.UserService{
+		UserRepository: &UserReposiotry{},
+	}
+
+	users, _ := userService.GetAllUsers()
+
+	for _, user := range users{
+		if(service.HasSpecialCharacters(user.Name)){
+			t.Fatalf("Username has special chars")
+		}
+	}
+}
+
+func TestHasNumericChars(t *testing.T){
+	strNummeric := "Test1563=%§"
+	strCharacter := "?*'%&$§"
+	strName := "Anthony"
+	strEmpty := ""
+
+	assertEquals(t, true, service.HasSpecialCharacters(strNummeric), strNummeric)
+	assertEquals(t, true, service.HasSpecialCharacters(strCharacter), strCharacter)
+	assertEquals(t, false, service.HasSpecialCharacters(strName), strName)
+	assertEquals(t, true, service.HasSpecialCharacters(strEmpty), strEmpty)
+}
+
+func assertEquals(t *testing.T, expected, actual interface{}, message string) {
+    if expected != actual {
+        t.Errorf("Expected: %v, Actual: %v | %v", expected, actual, message)
+    }
+}

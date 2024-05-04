@@ -22,10 +22,6 @@ services:
 
     env_file:
       - .env # The name of the environment file
-      
-    environment:
-      POSTGRES_USER: username 
-      POSTGRES_PASSWORD: password
 
 #docker-compose up -> to create the db image / container / with -d you can start these process in the background
 #docker-compose start -> starts all services / docker-compose start <service name> to start individual service 

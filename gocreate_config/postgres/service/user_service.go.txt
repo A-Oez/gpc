@@ -31,7 +31,7 @@ func (s *UserService) GetAllUsers() ([]entity.User, error) {
     var userFiltered []entity.User
 
     for _ , user := range users{
-        if(!hasNumericChars(user.Name)){
+        if(!HasSpecialCharacters(user.Name)){
             userFiltered = append(userFiltered, user)
         }
     }
@@ -39,11 +39,16 @@ func (s *UserService) GetAllUsers() ([]entity.User, error) {
     return userFiltered, nil
 }
 
-func hasNumericChars(s string) bool {
-	for _, char := range s {
-		if unicode.IsDigit(char) {
+func HasSpecialCharacters(s string) bool {
+    if s == ""{
+        return true
+    }
+
+    for _, char := range s {
+		if unicode.IsDigit(char) || unicode.IsControl(char) || unicode.IsSymbol(char) {
 			return true
 		}
 	}
+
 	return false
 }
