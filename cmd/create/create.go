@@ -1,12 +1,14 @@
 package create
 
 import (
+	"fmt"
+
 	"github.com/spf13/cobra"
 
 	rootCmd "github.com/A-Oez/GoProjectCreator/cmd"
 
-	bp "github.com/A-Oez/GoProjectCreator/internal/base_project"
-	db "github.com/A-Oez/GoProjectCreator/internal/db"
+	bp "github.com/A-Oez/GoProjectCreator/internal/structures/base"
+	dbFactory "github.com/A-Oez/GoProjectCreator/internal/structures/db"
 )
 
 var createCmd = &cobra.Command{
@@ -28,24 +30,28 @@ func execute(cmd *cobra.Command, args []string){
 	databaseFlag, _ := cmd.Flags().GetString("db")
 	openEditorFlag, _ := cmd.Flags().GetBool("code")
 
-	//create base project
+	createBaseStructure(projectNameFlag, openEditorFlag)
+	createDBStructure(projectNameFlag, databaseFlag)
+}
+
+func createBaseStructure(projectNameFlag string, openEditorFlag bool){
 	bp := bp.BaseProject{
 		ProjectName: projectNameFlag, 
 		OpenEditor: openEditorFlag,
 	}
 	bp.CreateMainDirectory()
-	//TODO: go routines ?
 	bp.CreateDirectories()
 	bp.CreateFiles()
 	bp.UseCommands()
+}
 
-
-	if databaseFlag != ""{ //TODO: add method to check if given db type exists -> db enum?
-		db := db.DatabaseProject{
-			ProjectName: projectNameFlag, 
-		}
+func createDBStructure(projectNameFlag string, databaseFlag string){
+	if dbType, isValid := dbFactory.ParseDatabaseType(databaseFlag); isValid{  
+		db := dbFactory.DatabaseServiceFactory(projectNameFlag, dbType)
 		db.CreateDirectories()
 		db.CreateFiles()
+	} else {
+		message := fmt.Sprintf("Given db input %s doesnt exist, no db structure created", databaseFlag)
+		fmt.Println(message)
 	}	
-
 }

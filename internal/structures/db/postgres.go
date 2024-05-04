@@ -6,17 +6,17 @@ import (
 	utils "github.com/A-Oez/GoProjectCreator/internal/utils"
 )
 
-type DatabaseProject struct {
+type DBPostgres struct {
 	ProjectName string
 }
 
-func (db *DatabaseProject) CreateDirectories(){
+func (db *DBPostgres) CreateDirectories(){
 	dbPath := filepath.Join(db.ProjectName, "db")
 	subDir := []string{dbPath}
 	utils.CreateDir(subDir)	
 }
 
-func (db *DatabaseProject) CreateFiles(){
+func (db *DBPostgres) CreateFiles(){
 	envPath := []string{db.ProjectName,"db",".env"}
 	envConfig := []string{"gocreate_config", "db", "postgres", ".env"}
 

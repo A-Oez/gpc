@@ -1,4 +1,4 @@
-package base_project
+package base
 
 import (
 	"os/exec"
