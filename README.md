@@ -8,12 +8,16 @@ go install github.com/A-Oez/GoProjectCreator@latest
 
 
 ## Example Command
-GoProjectCreator create `--dir` PROJECTNAME `--rmd` `--code` 
+With Postgres database structure: 
+- GoProjectCreator create `--p` PROJECTNAME `--db` Postgres `--code` 
 
+Basic project structure: 
+- GoProjectCreator create `--p` PROJECTNAME `--code`
 
 ## Flags 
-- `--dir`: Specifies the name of the project `(mandatory)`
-- `--rmd`: Generates a README.md file `(optional)`
+- `--p`: Specifies the name of the project `(mandatory)`
+- `--db`: Creates a database structure `(optional)`
+-       -> Currently available: Postgres
 - `--code`: Open project in code editor `(optional)`
 
 
@@ -31,9 +35,5 @@ ProjectName
 
 
 ## Template Files
-Currently, the main.go file & the README.md can be filled with standard values.
-
-To do this:
-- Create a folder named "gocreate_config" in the go/bin directory
-- Add `config_main.go.txt` & `config_README.md.txt` files with specific values
-- `(see the gocreate_config directory in the project as an example)`
+In order for the structure to be generated correctly, the "gocreate_config" folder must be stored in the go/bin directory
+- C:\Users\USER\go\bin
