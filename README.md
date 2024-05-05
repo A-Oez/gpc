@@ -17,7 +17,7 @@ Basic project structure:
 ## Flags 
 - `--p`: Specifies the name of the project `(mandatory)`
 - `--db`: Creates a database structure `(optional)`
--       -> Currently available: Postgres
+-         Currently available: Postgres
 - `--code`: Open project in code editor `(optional)`
 
 
