@@ -2,6 +2,7 @@ package create
 
 import (
 	"fmt"
+	"sync"
 
 	"github.com/spf13/cobra"
 
@@ -25,27 +26,35 @@ func init() {
 	createCmd.PersistentFlags().BoolVar(&openEditor, "code", false, "open project in code editor")
 }
 
-func execute(cmd *cobra.Command, args []string){
+func execute(cmd *cobra.Command, args []string){	
 	projectNameFlag, _ := cmd.Flags().GetString("p")
 	databaseFlag, _ := cmd.Flags().GetString("db")
 	openEditorFlag, _ := cmd.Flags().GetBool("code")
 
-	createBaseStructure(projectNameFlag, openEditorFlag, databaseFlag)
-	createDBStructure(projectNameFlag, databaseFlag)
-}
-
-func createBaseStructure(projectNameFlag string, openEditorFlag bool, databaseFlag string){
 	bp := bp.BaseProject{
 		ProjectName: projectNameFlag, 
 		OpenEditor: openEditorFlag,
 	}
 	bp.CreateMainDirectory()
+
+	var wg sync.WaitGroup
+	wg.Add(2)
+
+	go createBaseStructure(bp, &wg)
+	go createDBStructure(projectNameFlag, databaseFlag, &wg)
+
+	wg.Wait()
+}
+
+func createBaseStructure(bp bp.BaseProject, wg *sync.WaitGroup){
 	bp.CreateDirectories()
 	bp.CreateFiles()
 	bp.UseCommands()
+
+	defer wg.Done()
 }
 
-func createDBStructure(projectNameFlag string, databaseFlag string){
+func createDBStructure(projectNameFlag string, databaseFlag string, wg *sync.WaitGroup){
 	if dbType, isValid := dbFactory.ParseDatabaseType(databaseFlag); isValid{  
 		db := dbFactory.DatabaseServiceFactory(projectNameFlag, dbType)
 		db.CreateDirectories()
@@ -55,4 +64,6 @@ func createDBStructure(projectNameFlag string, databaseFlag string){
 		message := fmt.Sprintf("Given db input %s doesnt exist, no db structure created", databaseFlag)
 		fmt.Println(message)
 	}	
+
+	defer wg.Done()
 }
