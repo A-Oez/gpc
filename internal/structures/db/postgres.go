@@ -31,6 +31,9 @@ func (db *DBPostgres) CreateFiles(){
 	dockerPath := []string{db.ProjectName, "docker-compose.yml"}
 	dockerConfig := []string{"gocreate_config", "postgres", "docker-compose.yml"}
 
+	gitIgnorePath := []string{db.ProjectName, ".gitignore"}
+	gitIgnoreConfig := []string{"gocreate_config", "postgres", ".gitignore"}
+
 	mainGoPath := []string{db.ProjectName, "main.go"}
 	mainGoConfig := []string{"gocreate_config", "postgres", "main.go.txt"}
 
@@ -70,6 +73,10 @@ func (db *DBPostgres) CreateFiles(){
 		{
 			FilePath: dockerPath,
 			ConfigPath: dockerConfig,
+		},
+		{
+			FilePath: gitIgnorePath,
+			ConfigPath: gitIgnoreConfig,
 		},
 		{
 			FilePath: mainGoPath,

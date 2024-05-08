@@ -47,14 +47,20 @@ func execute(cmd *cobra.Command, args []string){
 }
 
 func createBaseStructure(bp bp.BaseProject, wg *sync.WaitGroup){
+	defer wg.Done()
+
 	bp.CreateDirectories()
 	bp.CreateFiles()
 	bp.UseCommands()
-
-	defer wg.Done()
 }
 
 func createDBStructure(projectNameFlag string, databaseFlag string, wg *sync.WaitGroup){
+	defer wg.Done()
+
+	if databaseFlag == ""{
+		return
+	}
+	
 	if dbType, isValid := dbFactory.ParseDatabaseType(databaseFlag); isValid{  
 		db := dbFactory.DatabaseServiceFactory(projectNameFlag, dbType)
 		db.CreateDirectories()
@@ -64,6 +70,4 @@ func createDBStructure(projectNameFlag string, databaseFlag string, wg *sync.Wai
 		message := fmt.Sprintf("Given db input %s doesnt exist, no db structure created", databaseFlag)
 		fmt.Println(message)
 	}	
-
-	defer wg.Done()
 }
