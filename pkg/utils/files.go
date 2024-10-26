@@ -32,7 +32,6 @@ func CreateFiles(projectName string, content string, filePath []string) {
 	}
 }
 
-
 func GetEmbeddedContent(content embed.FS, fileName string) []byte {
 	output, err := content.ReadFile(fileName)
 

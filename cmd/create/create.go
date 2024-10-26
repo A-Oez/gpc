@@ -10,6 +10,7 @@ import (
 
 	dbFactory "github.com/A-Oez/GoProjectCreator/internal"
 	bp "github.com/A-Oez/GoProjectCreator/internal/structures/base"
+	"github.com/pterm/pterm"
 )
 
 var createCmd = &cobra.Command{
@@ -27,9 +28,14 @@ func init() {
 }
 
 func execute(cmd *cobra.Command, args []string){	
-	projectNameFlag, _ := cmd.Flags().GetString("p")
+	projectNameFlag, err := cmd.Flags().GetString("p")
 	databaseFlag, _ := cmd.Flags().GetString("db")
 	openEditorFlag, _ := cmd.Flags().GetBool("code")
+
+	if err != nil {
+		fmt.Println("Error retrieving project name flag:", err)
+		return
+	}
 
 	bp := bp.BaseProject{
 		ProjectName: projectNameFlag, 
@@ -44,6 +50,7 @@ func execute(cmd *cobra.Command, args []string){
 	go createDBStructure(projectNameFlag, databaseFlag, &wg)
 
 	wg.Wait()
+	pterm.Success.Printf("Project %s successfully created!", projectNameFlag)
 }
 
 func createBaseStructure(bp bp.BaseProject, wg *sync.WaitGroup){
@@ -61,13 +68,14 @@ func createDBStructure(projectNameFlag string, databaseFlag string, wg *sync.Wai
 		return
 	}
 	
-	if dbType, isValid := dbFactory.ParseDatabaseType(databaseFlag); isValid{  
-		db := dbFactory.DatabaseServiceFactory(projectNameFlag, dbType)
-		db.CreateDirectories()
-		db.CreateFiles()
-		db.UseCommand()
-	} else {
-		message := fmt.Sprintf("Given db input %s doesnt exist, no db structure created", databaseFlag)
-		fmt.Println(message)
-	}	
+	dbType, isValid := dbFactory.ParseDatabaseType(databaseFlag)
+	if !isValid {
+		fmt.Printf("Given db input %s doesn't exist, no db structure created", databaseFlag)
+		return
+	}
+
+	db := dbFactory.DatabaseServiceFactory(projectNameFlag, dbType)
+	db.CreateDirectories()
+	db.CreateFiles()
+	db.UseCommand()
 }

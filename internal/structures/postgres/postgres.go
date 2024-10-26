@@ -25,8 +25,7 @@ type DBPostgres struct {
 func (db *DBPostgres) CreateDirectories(){
 	dbPath := filepath.Join(db.ProjectName, "db")
 	typesPath := filepath.Join(db.ProjectName, "db", "types")
-	testPath := filepath.Join(db.ProjectName, "test")
-	subDir := []string{dbPath, typesPath, testPath}
+	subDir := []string{dbPath, typesPath}
 	utils.CreateDir(subDir)	
 }
 
