@@ -8,8 +8,8 @@ import (
 
 	rootCmd "github.com/A-Oez/GoProjectCreator/cmd"
 
+	dbFactory "github.com/A-Oez/GoProjectCreator/internal"
 	bp "github.com/A-Oez/GoProjectCreator/internal/structures/base"
-	dbFactory "github.com/A-Oez/GoProjectCreator/internal/structures/db"
 )
 
 var createCmd = &cobra.Command{

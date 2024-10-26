@@ -1,7 +1,17 @@
-package db
+package internal
+
+import (
+	pg "github.com/A-Oez/GoProjectCreator/internal/structures/postgres"
+)
 
 // simulate enumeration
 type DatabaseType string
+
+type DatabaseStructure interface {
+	CreateDirectories()
+	CreateFiles()
+	UseCommand()
+}
 
 const (
 	Postgres DatabaseType = "Postgres"
@@ -9,12 +19,6 @@ const (
 
 var SupportedDatabaseTypes = []DatabaseType{
 	Postgres,
-}
-
-type DatabaseStructure interface {
-	CreateDirectories()
-	CreateFiles()
-	UseCommand()
 }
 
 func ParseDatabaseType(dbType string) (DatabaseType, bool) {
@@ -29,7 +33,7 @@ func ParseDatabaseType(dbType string) (DatabaseType, bool) {
 func DatabaseServiceFactory(projectName string, dbType DatabaseType) DatabaseStructure {
 	switch dbType {
 	case Postgres:
-		return &DBPostgres{
+		return &pg.DBPostgres{
 			ProjectName: projectName,
 		}
 	default:

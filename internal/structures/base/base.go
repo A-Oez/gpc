@@ -1,12 +1,17 @@
 package base
 
 import (
+	"embed"
 	"os/exec"
 
 	"path/filepath"
 
-	utils "github.com/A-Oez/GoProjectCreator/internal/utils"
+	utils "github.com/A-Oez/GoProjectCreator/pkg/utils"
 )
+
+//go:embed config/main.go.txt
+//go:embed config/README.md.txt
+var content embed.FS
 
 type BaseProject struct{
 	ProjectName string
@@ -20,8 +25,10 @@ func (bp *BaseProject) CreateMainDirectory(){
 func (bp *BaseProject) CreateDirectories(){
 	cmdPath := filepath.Join(bp.ProjectName, "cmd")
 	internalPath := filepath.Join(bp.ProjectName, "internal")
+	pkgPath := filepath.Join(bp.ProjectName, "pkg")
+	testPath := filepath.Join(bp.ProjectName, "test")
 
-	subDir := []string{cmdPath, internalPath}
+	subDir := []string{cmdPath, internalPath, pkgPath, testPath}
 	utils.CreateDir(subDir)	
 }
 
@@ -38,24 +45,18 @@ func (bp *BaseProject) UseCommands() {
 }
 
 func (bp *BaseProject) CreateFiles(){
-	mainGoPath := []string{bp.ProjectName, "main.go"}
-	mainGoConfig := []string{"gocreate_config", "main.go.txt"}
-
-	readmePath := []string{bp.ProjectName, "README.md"}
-	readmeConfig := []string{"gocreate_config", "README.md.txt"}
-
 	files := []utils.File{
 		{
-			FilePath: mainGoPath,
-			ConfigPath: mainGoConfig,
+			Path:    []string{bp.ProjectName, "main.go"},
+			Content: []byte(utils.GetEmbeddedContent(content, "config/main.go.txt")),
 		},
 		{
-			FilePath: readmePath,
-			ConfigPath: readmeConfig,
+			Path:    []string{bp.ProjectName, "README.md"},
+			Content: []byte(utils.GetEmbeddedContent(content, "config/README.md.txt")),
 		},
 	}
 
-	for _, file := range files{
-		utils.CreateFiles(file.FilePath, file.ConfigPath, bp.ProjectName)
-	} 
+	for _, fileStr := range files {
+		utils.CreateFiles(bp.ProjectName, string(fileStr.Content), fileStr.Path)
+	}
 }
