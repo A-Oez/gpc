@@ -52,7 +52,7 @@ func setupHeader(){
 	//Header
 	pterm.DefaultBigText.WithLetters(
 		putils.LettersFromStringWithStyle("GP", pterm.FgLightMagenta.ToStyle()),
-		putils.LettersFromStringWithStyle("Creator", pterm.FgCyan.ToStyle()),
+		putils.LettersFromStringWithStyle("C", pterm.FgCyan.ToStyle()),
 	).Render()
 	pterm.DefaultHeader.Println("GoProjectCreator ~ A TUI for fast and flexible Go project creation ~ made with pterm")
 	pterm.Println()
