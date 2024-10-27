@@ -3,8 +3,8 @@ package test
 import (
 	"testing"
 
-	"github.com/A-Oez/GoProjectCreator/internal"
-	bp "github.com/A-Oez/GoProjectCreator/internal/config/base"
+	"github.com/A-Oez/gpc/internal"
+	bp "github.com/A-Oez/gpc/internal/config/base"
 )
 
 func TestDBFileCreation(t *testing.T) {

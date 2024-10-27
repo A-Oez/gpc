@@ -3,8 +3,8 @@ package internal
 import (
 	"log"
 
-	bp "github.com/A-Oez/GoProjectCreator/internal/config/base"
-	"github.com/A-Oez/GoProjectCreator/internal/config/db"
+	bp "github.com/A-Oez/gpc/internal/config/base"
+	"github.com/A-Oez/gpc/internal/config/db"
 )
 
 func ExecuteCreation(bp bp.BaseProject, dbStr string) {

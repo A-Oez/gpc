@@ -1,7 +1,7 @@
 package db
 
 import (
-	pg "github.com/A-Oez/GoProjectCreator/internal/config/db/postgres"
+	pg "github.com/A-Oez/gpc/internal/config/db/postgres"
 )
 
 //db enumeration

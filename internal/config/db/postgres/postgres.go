@@ -5,7 +5,7 @@ import (
 	"os/exec"
 	"path/filepath"
 
-	utils "github.com/A-Oez/GoProjectCreator/pkg/utils"
+	utils "github.com/A-Oez/gpc/pkg/utils"
 )
 
 //go:embed structure/main.go.txt

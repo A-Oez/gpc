@@ -1,4 +1,4 @@
-module github.com/A-Oez/GoProjectCreator
+module github.com/A-Oez/gpc
 
 go 1.22.0
 

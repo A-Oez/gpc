@@ -7,9 +7,9 @@ import (
 	"github.com/pterm/pterm/putils"
 	"github.com/spf13/cobra"
 
-	rootCmd "github.com/A-Oez/GoProjectCreator/cmd"
-	"github.com/A-Oez/GoProjectCreator/internal"
-	bp "github.com/A-Oez/GoProjectCreator/internal/config/base"
+	rootCmd "github.com/A-Oez/gpc/cmd"
+	"github.com/A-Oez/gpc/internal"
+	bp "github.com/A-Oez/gpc/internal/config/base"
 )
 
 var tuiCmd = &cobra.Command{

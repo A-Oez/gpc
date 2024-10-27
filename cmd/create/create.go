@@ -6,10 +6,10 @@ import (
 
 	"github.com/spf13/cobra"
 
-	rootCmd "github.com/A-Oez/GoProjectCreator/cmd"
-	"github.com/A-Oez/GoProjectCreator/internal"
+	rootCmd "github.com/A-Oez/gpc/cmd"
+	"github.com/A-Oez/gpc/internal"
 
-	bp "github.com/A-Oez/GoProjectCreator/internal/config/base"
+	bp "github.com/A-Oez/gpc/internal/config/base"
 	"github.com/pterm/pterm"
 )
 
