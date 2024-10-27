@@ -9,8 +9,8 @@ import (
 	utils "github.com/A-Oez/GoProjectCreator/pkg/utils"
 )
 
-//go:embed config/main.go.txt
-//go:embed config/README.md.txt
+//go:embed structure/main.go.txt
+//go:embed structure/README.md.txt
 var content embed.FS
 
 type BaseProject struct{
@@ -18,11 +18,18 @@ type BaseProject struct{
 	OpenEditor bool
 }
 
-func (bp *BaseProject) CreateMainDirectory(){
+func (bp *BaseProject) Execute(){
+	bp.createMainDirectory()
+	bp.createDirectories()
+	bp.createFiles()
+	bp.useCommands()
+}
+
+func (bp *BaseProject) createMainDirectory(){
 	utils.CreateDir([]string{bp.ProjectName})
 }
 
-func (bp *BaseProject) CreateDirectories(){
+func (bp *BaseProject) createDirectories() {
 	cmdPath := filepath.Join(bp.ProjectName, "cmd")
 	internalPath := filepath.Join(bp.ProjectName, "internal")
 	pkgPath := filepath.Join(bp.ProjectName, "pkg")
@@ -32,7 +39,7 @@ func (bp *BaseProject) CreateDirectories(){
 	utils.CreateDir(subDir)	
 }
 
-func (bp *BaseProject) UseCommands() {
+func (bp *BaseProject) useCommands() {
 	cmdGoMod := exec.Command("go", "mod", "init", bp.ProjectName)
 	cmdGoMod.Dir = bp.ProjectName
 	utils.ExecuteCommand(cmdGoMod)
@@ -44,15 +51,15 @@ func (bp *BaseProject) UseCommands() {
 	}
 }
 
-func (bp *BaseProject) CreateFiles(){
+func (bp *BaseProject) createFiles(){
 	files := []utils.File{
 		{
 			Path:    []string{bp.ProjectName, "main.go"},
-			Content: []byte(utils.GetEmbeddedContent(content, "config/main.go.txt")),
+			Content: []byte(utils.GetEmbeddedContent(content, "structure/main.go.txt")),
 		},
 		{
 			Path:    []string{bp.ProjectName, "README.md"},
-			Content: []byte(utils.GetEmbeddedContent(content, "config/README.md.txt")),
+			Content: []byte(utils.GetEmbeddedContent(content, "structure/README.md.txt")),
 		},
 	}
 

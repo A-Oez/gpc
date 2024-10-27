@@ -2,7 +2,7 @@ package utils
 
 import (
 	"bytes"
-	"fmt"
+	"log"
 	"os/exec"
 )
 
@@ -11,11 +11,7 @@ func ExecuteCommand(cmd *exec.Cmd) {
 	cmd.Stdout = &stdout
 	cmd.Stderr = &stderr
 
-	err := cmd.Run()
-
-	if err != nil {
-		fmt.Println("exception:", err)
-		fmt.Println("exception message:", stderr.String())
-		return
+	if err := cmd.Run(); err != nil {
+		log.Fatalf("Failed to execute command: %v\nStderr: %s", err, stderr.String())
 	}
 }

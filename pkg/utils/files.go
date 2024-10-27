@@ -2,7 +2,6 @@ package utils
 
 import (
 	"embed"
-	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -20,15 +19,13 @@ func CreateFiles(projectName string, content string, filePath []string) {
 
 	file, err := os.Create(path)
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		log.Fatalf("Failed to create file at %s: %v", path, err)
 	}
 	defer file.Close()
 
 	_, err = file.WriteString(content)
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		log.Fatalf("Failed to write content to file at %s: %v", path, err)
 	}
 }
 
@@ -36,7 +33,7 @@ func GetEmbeddedContent(content embed.FS, fileName string) []byte {
 	output, err := content.ReadFile(fileName)
 
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Failed to read embedded file %s: %v", fileName, err)
 	}
 
 	return output

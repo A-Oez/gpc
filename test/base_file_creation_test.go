@@ -3,7 +3,8 @@ package test
 import (
 	"testing"
 
-	bp "github.com/A-Oez/GoProjectCreator/internal/structures/base"
+	"github.com/A-Oez/GoProjectCreator/internal"
+	bp "github.com/A-Oez/GoProjectCreator/internal/config/base"
 )
 
 
@@ -12,9 +13,8 @@ func TestBPFileCreation(t *testing.T) {
 	
 	bp := bp.BaseProject{
 		ProjectName: projectNameFlag, 
-		OpenEditor: false,
+		OpenEditor: true,
 	}
-	bp.CreateMainDirectory()
-	bp.CreateDirectories()
-	bp.CreateFiles()
+	
+	internal.RunProject(bp, "")
 }

@@ -1,15 +1,15 @@
 package create
 
 import (
-	"fmt"
-	"sync"
+	"errors"
+	"log"
 
 	"github.com/spf13/cobra"
 
 	rootCmd "github.com/A-Oez/GoProjectCreator/cmd"
+	"github.com/A-Oez/GoProjectCreator/internal"
 
-	dbFactory "github.com/A-Oez/GoProjectCreator/internal"
-	bp "github.com/A-Oez/GoProjectCreator/internal/structures/base"
+	bp "github.com/A-Oez/GoProjectCreator/internal/config/base"
 	"github.com/pterm/pterm"
 )
 
@@ -28,54 +28,17 @@ func init() {
 }
 
 func execute(cmd *cobra.Command, args []string){	
-	projectNameFlag, err := cmd.Flags().GetString("p")
-	databaseFlag, _ := cmd.Flags().GetString("db")
-	openEditorFlag, _ := cmd.Flags().GetBool("code")
-
-	if err != nil {
-		fmt.Println("Error retrieving project name flag:", err)
-		return
+	projectNameFlag, err1 := cmd.Flags().GetString("p")
+	databaseFlag, err2 := cmd.Flags().GetString("db")
+	openEditorFlag, err3 := cmd.Flags().GetBool("code")
+	if err := errors.Join(err1, err2, err3); err != nil{
+		log.Fatal("error retrieving flags:", err)
 	}
 
 	bp := bp.BaseProject{
-		ProjectName: projectNameFlag, 
+		ProjectName: projectNameFlag,
 		OpenEditor: openEditorFlag,
 	}
-	bp.CreateMainDirectory()
-
-	var wg sync.WaitGroup
-	wg.Add(2)
-
-	go createBaseStructure(bp, &wg)
-	go createDBStructure(projectNameFlag, databaseFlag, &wg)
-
-	wg.Wait()
+	internal.ExecuteCreation(bp, databaseFlag)
 	pterm.Success.Printf("Project %s successfully created!", projectNameFlag)
-}
-
-func createBaseStructure(bp bp.BaseProject, wg *sync.WaitGroup){
-	defer wg.Done()
-
-	bp.CreateDirectories()
-	bp.CreateFiles()
-	bp.UseCommands()
-}
-
-func createDBStructure(projectNameFlag string, databaseFlag string, wg *sync.WaitGroup){
-	defer wg.Done()
-
-	if databaseFlag == ""{
-		return
-	}
-	
-	dbType, isValid := dbFactory.ParseDatabaseType(databaseFlag)
-	if !isValid {
-		fmt.Printf("Given db input %s doesn't exist, no db structure created", databaseFlag)
-		return
-	}
-
-	db := dbFactory.DatabaseServiceFactory(projectNameFlag, dbType)
-	db.CreateDirectories()
-	db.CreateFiles()
-	db.UseCommand()
 }

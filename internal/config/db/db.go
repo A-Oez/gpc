@@ -1,10 +1,10 @@
-package internal
+package db
 
 import (
-	pg "github.com/A-Oez/GoProjectCreator/internal/structures/postgres"
+	pg "github.com/A-Oez/GoProjectCreator/internal/config/db/postgres"
 )
 
-// simulate enumeration
+//db enumeration
 type DatabaseType string
 
 type DatabaseStructure interface {
@@ -21,7 +21,14 @@ var SupportedDatabaseTypes = []DatabaseType{
 	Postgres,
 }
 
-func ParseDatabaseType(dbType string) (DatabaseType, bool) {
+func (dbType DatabaseType) Execute(projectName string){
+	db := dbFactory(projectName, dbType)
+	db.CreateDirectories()
+	db.CreateFiles()
+	db.UseCommand()
+}
+
+func GetDatabaseType(dbType string) (DatabaseType, bool) {
 	for _, entry := range SupportedDatabaseTypes {
 		if string(entry) == dbType {
 			return entry, true
@@ -30,7 +37,7 @@ func ParseDatabaseType(dbType string) (DatabaseType, bool) {
 	return "", false
 }
 
-func DatabaseServiceFactory(projectName string, dbType DatabaseType) DatabaseStructure {
+func dbFactory(projectName string, dbType DatabaseType) DatabaseStructure {
 	switch dbType {
 	case Postgres:
 		return &pg.DBPostgres{
