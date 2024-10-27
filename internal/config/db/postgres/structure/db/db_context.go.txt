@@ -5,7 +5,7 @@ import (
 
 	_ "github.com/lib/pq"
 
-	db "XPROJECTNAMEX/db/database_types"
+	db "XPROJECTNAMEX/db/types"
 )
 
 type SqlDBConnection interface{

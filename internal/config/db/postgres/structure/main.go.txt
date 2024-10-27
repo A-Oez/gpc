@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
 	dbFactory "XPROJECTNAMEX/db"
 	"log"
+
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
