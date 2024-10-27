@@ -16,5 +16,5 @@ func TestBPFileCreation(t *testing.T) {
 		OpenEditor: true,
 	}
 	
-	internal.RunProject(bp, "")
+	internal.ExecuteCreation(bp, "")
 }

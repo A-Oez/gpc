@@ -15,5 +15,5 @@ func TestDBFileCreation(t *testing.T) {
 		OpenEditor: true,
 	}
 
-	internal.RunProject(bp, "Postgres")
+	internal.ExecuteCreation(bp, "asd")
 }

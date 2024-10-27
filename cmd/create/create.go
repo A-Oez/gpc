@@ -15,7 +15,7 @@ import (
 
 var createCmd = &cobra.Command{
 	Use:   "create",
-	Short: "create standard Golang project",
+	Short: "create golang projects",
 	Run: execute,
 }
 

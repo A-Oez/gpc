@@ -8,8 +8,8 @@ import (
 )
 
 func ExecuteCreation(bp bp.BaseProject, dbStr string) {
-	bp.Execute()
-	executeDB(bp.ProjectName, dbStr)
+	bp.Execute() //creates base project structure, mandatory for all type of structures
+	executeDB(bp.ProjectName, dbStr) 
 }
 
 func executeDB(projectName string, dbStr string){
