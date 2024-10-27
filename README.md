@@ -3,7 +3,7 @@
 **GoProjectCreator** is a CLI TUI tool created with [Cobra](https://github.com/spf13/cobra) to generate standard Go projects. Inspired by [go-blueprint](https://github.com/Melkeydev/go-blueprint), it provides an easy way to create projects with predefined structures and configurations. The TUI (Text User Interface) is built using [pterm](https://github.com/pterm/pterm).
 
 ## Installation
-go install github.com/A-Oez/GoProjectCreator@latest
+`go install github.com/A-Oez/GoProjectCreator@main`
 
 ## Example Command
 To open the TUI:
