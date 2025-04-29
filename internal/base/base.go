@@ -32,12 +32,11 @@ func (bp *BaseProject) createMainDirectory(){
 }
 
 func (bp *BaseProject) createDirectories() {
-	cmdPath := filepath.Join(bp.ProjectName, "cmd")
 	internalPath := filepath.Join(bp.ProjectName, "internal")
 	pkgPath := filepath.Join(bp.ProjectName, "pkg")
 	testPath := filepath.Join(bp.ProjectName, "test")
 
-	subDir := []string{cmdPath, internalPath, pkgPath, testPath}
+	subDir := []string{internalPath, pkgPath, testPath}
 	directories.CreateDir(subDir)	
 }
 
@@ -56,7 +55,7 @@ func (bp *BaseProject) useCommands() {
 func (bp *BaseProject) createFiles(){
 	filesArr := []files.File{
 		{
-			Path:    []string{bp.ProjectName, "cmd/main.go"},
+			Path:    []string{bp.ProjectName, "main.go"},
 			Content: []byte(files.GetEmbeddedContent(content, "structure/main.go.txt")),
 		},
 		{

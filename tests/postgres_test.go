@@ -1,10 +1,11 @@
 package test
 
 import (
+	"log"
 	"testing"
 
-	"github.com/A-Oez/gpc/internal"
 	bp "github.com/A-Oez/gpc/internal/base"
+	"github.com/A-Oez/gpc/internal/db"
 )
 
 func TestDBFileCreation(t *testing.T) {
@@ -15,5 +16,12 @@ func TestDBFileCreation(t *testing.T) {
 		OpenEditor: false,
 	}
 
-	internal.ExecuteCreation(bp, "Postgres")
+	bp.Execute()
+
+	dbStr := "Postgres"
+	dbType, ok := db.GetDatabaseType(dbStr)
+	if !ok {
+		log.Fatalf("Given db input %s doesn't exist, no db structure created", dbStr)
+	}
+	dbType.Execute(projectNameFlag)
 }
