@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/A-Oez/gpc/internal"
-	bp "github.com/A-Oez/gpc/internal/config/base"
+	bp "github.com/A-Oez/gpc/internal/base"
 )
 
 func TestDBFileCreation(t *testing.T) {
@@ -12,8 +12,8 @@ func TestDBFileCreation(t *testing.T) {
 	
 	bp := bp.BaseProject{
 		ProjectName: projectNameFlag, 
-		OpenEditor: true,
+		OpenEditor: false,
 	}
 
-	internal.ExecuteCreation(bp, "asd")
+	internal.ExecuteCreation(bp, "Postgres")
 }

@@ -3,8 +3,7 @@ package test
 import (
 	"testing"
 
-	"github.com/A-Oez/gpc/internal"
-	bp "github.com/A-Oez/gpc/internal/config/base"
+	bp "github.com/A-Oez/gpc/internal/base"
 )
 
 
@@ -13,8 +12,8 @@ func TestBPFileCreation(t *testing.T) {
 	
 	bp := bp.BaseProject{
 		ProjectName: projectNameFlag, 
-		OpenEditor: true,
+		OpenEditor: false,
 	}
 	
-	internal.ExecuteCreation(bp, "")
+	bp.Execute()
 }

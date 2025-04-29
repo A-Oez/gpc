@@ -9,7 +9,7 @@ import (
 	rootCmd "github.com/A-Oez/gpc/cmd"
 	"github.com/A-Oez/gpc/internal"
 
-	bp "github.com/A-Oez/gpc/internal/config/base"
+	bp "github.com/A-Oez/gpc/internal/base"
 	"github.com/pterm/pterm"
 )
 

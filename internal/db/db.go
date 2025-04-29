@@ -1,7 +1,7 @@
 package db
 
 import (
-	pg "github.com/A-Oez/gpc/internal/config/db/postgres"
+	pg "github.com/A-Oez/gpc/internal/db/postgres"
 )
 
 //db enumeration

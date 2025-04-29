@@ -1,4 +1,4 @@
-package utils
+package directories
 
 import (
 	"log"
