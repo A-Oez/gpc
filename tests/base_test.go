@@ -6,12 +6,14 @@ import (
 	bp "github.com/A-Oez/gpc/internal/base"
 )
 
+var(
+	project_name = "TEST"
+)
 
-func TestBPFileCreation(t *testing.T) {
-	projectNameFlag := "BP_TEST"
-	
+
+func TestBPFileCreation(t *testing.T) {	
 	bp := bp.BaseProject{
-		ProjectName: projectNameFlag, 
+		ProjectName: project_name, 
 		OpenEditor: false,
 	}
 	

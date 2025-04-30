@@ -8,11 +8,9 @@ import (
 	"github.com/A-Oez/gpc/internal/db"
 )
 
-func TestDBFileCreation(t *testing.T) {
-	projectNameFlag := "DB_TEST"
-	
+func TestDBFileCreation(t *testing.T) {	
 	bp := bp.BaseProject{
-		ProjectName: projectNameFlag, 
+		ProjectName: project_name, 
 		OpenEditor: false,
 	}
 
@@ -23,5 +21,5 @@ func TestDBFileCreation(t *testing.T) {
 	if !ok {
 		log.Fatalf("Given db input %s doesn't exist, no db structure created", dbStr)
 	}
-	dbType.Execute(projectNameFlag)
+	dbType.Execute(project_name)
 }
