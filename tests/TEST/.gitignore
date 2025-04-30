@@ -1,5 +1,0 @@
-# ignore generated .env file
-.env
-
-# ignore builded .exe files
-.exe

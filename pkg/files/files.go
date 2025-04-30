@@ -6,6 +6,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/A-Oez/gpc/pkg/directories"
 )
 
 type File struct { 	
@@ -16,6 +18,11 @@ type File struct {
 func CreateFiles(projectName string, content string, filePath []string) {
 	content = replaceContent(projectName, content)
 	path := filepath.Join(filePath...)
+
+	parentDir := filepath.Dir(path)
+	if !pathExists(parentDir){
+		directories.CreateDir([]string{parentDir})
+	}
 
 	file, err := os.Create(path)
 	if err != nil {
@@ -41,4 +48,9 @@ func GetEmbeddedContent(content embed.FS, fileName string) []byte {
 
 func replaceContent(projectName string, content string) string {
 	return strings.ReplaceAll(content, "XPROJECTNAMEX", projectName)
+}
+
+func pathExists(path string) bool {
+    _, err := os.Stat(path)
+    return os.IsExist(err) 
 }

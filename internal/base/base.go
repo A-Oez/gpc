@@ -4,8 +4,6 @@ import (
 	"embed"
 	"os/exec"
 
-	"path/filepath"
-
 	"github.com/A-Oez/gpc/pkg/commands"
 	"github.com/A-Oez/gpc/pkg/directories"
 	"github.com/A-Oez/gpc/pkg/files"
@@ -22,22 +20,12 @@ type BaseProject struct{
 
 func (bp *BaseProject) Execute(){
 	bp.createMainDirectory()
-	bp.createDirectories()
 	bp.createFiles()
 	bp.useCommands()
 }
 
 func (bp *BaseProject) createMainDirectory(){
 	directories.CreateDir([]string{bp.ProjectName})
-}
-
-func (bp *BaseProject) createDirectories() {
-	internalPath := filepath.Join(bp.ProjectName, "internal")
-	pkgPath := filepath.Join(bp.ProjectName, "pkg")
-	testPath := filepath.Join(bp.ProjectName, "test")
-
-	subDir := []string{internalPath, pkgPath, testPath}
-	directories.CreateDir(subDir)	
 }
 
 func (bp *BaseProject) useCommands() {

@@ -2,9 +2,7 @@ package webservice
 
 import (
 	"embed"
-	"path/filepath"
 
-	"github.com/A-Oez/gpc/pkg/directories"
 	"github.com/A-Oez/gpc/pkg/files"
 )
 
@@ -28,22 +26,7 @@ type Webservice struct{
 }
 
 func (ws *Webservice) Execute(){
-	ws.createDirectories()
 	ws.createFiles()
-}
-
-func (ws *Webservice) createDirectories() {
-	migrationsPath := filepath.Join(ws.ProjectName, "db", "migrations")
-	serverPath := filepath.Join(ws.ProjectName, "internal", "server")
-	middlewarePath := filepath.Join(ws.ProjectName, "internal", "server", "middleware")
-	servicePath := filepath.Join(ws.ProjectName, "internal", "service")
-	userPath := filepath.Join(ws.ProjectName, "internal", "service", "user")
-	handlerPath := filepath.Join(ws.ProjectName, "internal", "service", "user", "handler")
-	entityPath := filepath.Join(ws.ProjectName, "internal", "service", "user", "entity")
-	repoPath := filepath.Join(ws.ProjectName, "internal", "service", "user", "repo")
-	
-	subDir := []string{migrationsPath, serverPath, middlewarePath, servicePath, userPath, handlerPath, entityPath, repoPath}
-	directories.CreateDir(subDir)	
 }
 
 func (ws *Webservice) createFiles(){

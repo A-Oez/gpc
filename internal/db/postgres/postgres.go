@@ -3,13 +3,12 @@ package postgres
 import (
 	"embed"
 	"os/exec"
-	"path/filepath"
 
 	"github.com/A-Oez/gpc/pkg/commands"
-	"github.com/A-Oez/gpc/pkg/directories"
 	"github.com/A-Oez/gpc/pkg/files"
 )
 
+//go:embed structure/README.md.txt
 //go:embed structure/main.go.txt
 //go:embed structure/docker-compose.yml
 //go:embed structure/.gitignore.txt
@@ -25,15 +24,12 @@ type DBPostgres struct {
 	OpenEditor bool
 }
 
-func (db *DBPostgres) CreateDirectories(){
-	dbPath := filepath.Join(db.ProjectName, "db")
-	typesPath := filepath.Join(db.ProjectName, "db", "types")
-	subDir := []string{dbPath, typesPath}
-	directories.CreateDir(subDir)	
-}
-
 func (db *DBPostgres) CreateFiles(){
 	filesArr := []files.File{
+		{
+			Path:    []string{db.ProjectName, "README.md"},
+			Content: []byte(files.GetEmbeddedContent(content, "structure/README.md.txt")),
+		},
 		{
 			Path:    []string{db.ProjectName, ".env"},
 			Content: []byte(files.GetEmbeddedContent(content, "structure/env.txt")),

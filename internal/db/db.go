@@ -8,7 +8,6 @@ import (
 type DatabaseType string
 
 type DatabaseStructure interface {
-	CreateDirectories()
 	CreateFiles()
 	UseCommand()
 }
@@ -23,7 +22,6 @@ var SupportedDatabaseTypes = []DatabaseType{
 
 func (dbType DatabaseType) Execute(projectName string){
 	db := dbFactory(projectName, dbType)
-	db.CreateDirectories()
 	db.CreateFiles()
 	db.UseCommand()
 }
