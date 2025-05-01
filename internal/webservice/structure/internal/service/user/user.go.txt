@@ -1,0 +1,26 @@
+package user
+
+import "XPROJECTNAMEX/internal/service/user/entity"
+
+type UserRepository interface {
+	GetAll() ([]entity.User, error)
+}
+
+type UserService struct {
+	repository UserRepository
+}
+
+func NewUserService(repo UserRepository) *UserService {
+	return &UserService{
+		repository: repo,
+	}
+}
+
+func (us *UserService) GetAll() ([]entity.User, error) {
+	users, err := us.repository.GetAll()
+	if err != nil {
+		return nil, err
+	}
+
+	return users, nil
+}

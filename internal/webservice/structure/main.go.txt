@@ -2,19 +2,23 @@ package main
 
 import (
 	dbFactory "XPROJECTNAMEX/db"
+	sr "XPROJECTNAMEX/internal/server"
 	"log"
+	"os"
 
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
 
-func main() {
-	
+func init() {
 	//load env variables from .env file
-	if err := godotenv.Load(); err != nil {
+    err := godotenv.Load()
+    if err != nil {
 		log.Fatalf("Error loading environment variables %v", err)
-	}
+    }
+}
 
+func main() {
 	dbType := "postgres" 
 
 	db, err := dbFactory.GetDatabaseContextFactory(dbType).GetConnection()

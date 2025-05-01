@@ -1,0 +1,7 @@
+package server
+
+import "XPROJECTNAMEX/internal/server/middleware"
+
+func (s *Server) registerRouter() {
+	s.Mux.Handle("GET /api/user", middleware.Handle()(s.UserHandler.GetAll()))
+}

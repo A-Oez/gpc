@@ -1,0 +1,29 @@
+package server
+
+import (
+	user "XPROJECTNAMEX/internal/service/user/handler"
+	"database/sql"
+	"log"
+	"net/http"
+)
+
+type Server struct {
+	Db  	*sql.DB
+	Mux 	*http.ServeMux
+	UserHandler  *user.UserHandler
+}
+
+func NewServer(db *sql.DB) *Server {
+	return &Server{
+		Db:  db,
+		Mux: http.NewServeMux(),
+		UserHandler: user.NewUserHandler(db),
+	}
+}
+
+func (s *Server) Start(port string) {
+    s.registerRouter()
+
+    log.Printf("running on port: %s ", port);
+    http.ListenAndServe(port, s.Mux)
+}

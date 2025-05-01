@@ -1,0 +1,36 @@
+package handler
+
+import (
+	"XPROJECTNAMEX/internal/service/user"
+	"XPROJECTNAMEX/internal/service/user/entity"
+	"XPROJECTNAMEX/internal/service/user/repo"
+	"database/sql"
+	"encoding/json"
+	"net/http"
+)
+
+type UserHandler struct {
+	service UserService
+}
+
+type UserService interface {
+	GetAll() ([]entity.User, error)
+}
+
+func NewUserHandler(db *sql.DB) *UserHandler {
+	return &UserHandler{
+		service: user.NewUserService(repo.NewUserRepository(db)),
+	}
+}
+
+func (uh *UserHandler) GetAll() http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		entity, err := uh.service.GetAll()
+
+		if err != nil {
+			return
+		}
+
+		json.NewEncoder(w).Encode(&entity)
+	})
+}
