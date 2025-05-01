@@ -1,1 +1,23 @@
 package user
+
+import (
+	"encoding/json"
+	"errors"
+	"log"
+	"net/http"
+)
+
+var (
+	ErrDBQueryFailed = errors.New("database query failed")
+)
+
+type DefaultError struct {
+	Status int		`json:"status"`			
+	Msg    string 	`json:"error_message"`
+}
+
+func (err DefaultError) WriteError(w http.ResponseWriter) {
+	log.Println(err.Msg)
+	w.WriteHeader(err.Status)
+	json.NewEncoder(w).Encode(err)
+}

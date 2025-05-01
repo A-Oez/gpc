@@ -28,6 +28,10 @@ func (uh *UserHandler) GetAll() http.Handler {
 		entity, err := uh.service.GetAll()
 
 		if err != nil {
+			user.DefaultError{
+				Status: http.StatusInternalServerError,
+				Msg: user.ErrDBQueryFailed.Error(),
+			}.WriteError(w)
 			return
 		}
 
