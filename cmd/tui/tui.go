@@ -32,7 +32,6 @@ func execute(cmd *cobra.Command, args []string){
 
 	setupHeader()
 	projectName := setProjectName()
-	dbStr := setupDBCreation(projectName)
 
 	//choose if editor should be opened
 	pterm.Info.Printfln("Should the project be opened in an editor?")
@@ -43,7 +42,15 @@ func execute(cmd *cobra.Command, args []string){
 		OpenEditor: editor,
 	}
 
-	internal.ExecuteCreation(bp, dbStr)
+	pterm.Info.Printfln("Do you want to create an webservice?")
+	webserviceFlag,_ := pterm.DefaultInteractiveConfirm.Show()
+
+	dbStr := ""
+	if(!webserviceFlag){
+		dbStr = setupDBCreation(projectName)
+	}
+
+	internal.ExecuteCreation(bp, dbStr, webserviceFlag)
 	pterm.Println()
 	pterm.Success.Printf("Project %s successfully created!", projectName)
 }

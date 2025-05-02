@@ -5,11 +5,17 @@ import (
 
 	bp "github.com/A-Oez/gpc/internal/base"
 	"github.com/A-Oez/gpc/internal/db"
+	"github.com/A-Oez/gpc/internal/webservice"
 )
 
-func ExecuteCreation(bp bp.BaseProject, dbStr string) {
+func ExecuteCreation(bp bp.BaseProject, dbStr string, webserviceFlag bool) {
 	bp.Execute() //creates base project structure, mandatory for all type of structures
-	executeDB(bp.ProjectName, dbStr) 
+	executeDB(bp.ProjectName, dbStr)
+
+	if(webserviceFlag) {
+		ws := webservice.Webservice{bp.ProjectName}
+		ws.Execute()
+	}
 }
 
 func executeDB(projectName string, dbStr string){
