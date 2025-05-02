@@ -43,14 +43,14 @@ func execute(cmd *cobra.Command, args []string){
 	}
 
 	pterm.Info.Printfln("Do you want to create an webservice?")
-	webserviceFlag,_ := pterm.DefaultInteractiveConfirm.Show()
+	apiFlag,_ := pterm.DefaultInteractiveConfirm.Show()
 
 	dbStr := ""
-	if(!webserviceFlag){
+	if(!apiFlag){
 		dbStr = setupDBCreation(projectName)
 	}
 
-	internal.ExecuteCreation(bp, dbStr, webserviceFlag)
+	internal.ExecuteCreation(bp, dbStr, apiFlag)
 	pterm.Println()
 	pterm.Success.Printf("Project %s successfully created!", projectName)
 }

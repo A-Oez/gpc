@@ -12,14 +12,18 @@
 To open the TUI:
 - gpc tui
 
-To create a project with a Postgres database structure:
-- gpc create `--p` PROJECTNAME `--db` Postgres `--code` 
-
 To create a basic project:
 - gpc create `--p` PROJECTNAME `--code`
+
+To Create a basic API structure (Api starter):
+gpc create --p PROJECTNAME --api --code
+
+To create a baisc project with a Postgres database connection:
+- gpc create `--p` PROJECTNAME `--db` Postgres `--code` 
 
 ## Flags 
 - `--p`: Specifies the name of the project `(mandatory)`
 - `--db`: Creates a database structure `(optional)`
           Currently available: Postgres
 - `--code`: Open project in code editor `(optional)`
+- `--api`: Create API structure `(optional)`
